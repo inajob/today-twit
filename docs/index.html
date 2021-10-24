@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>過去の今日の@ina_aniのTweet</title>
+    <meta property="og:title" content="過去の今日の@ina_aniのTweet">
+    <meta name="description" content="@ina_ani の過去の今日のTweetを表示しています">
+    <meta property="og:description" content="@ina_ani の過去の今日のTweetを表示しています">
+    <meta name="twitter:card"       content="summary">
+    <meta name="twitter:site:id"    content="@ina_ani">
+    <meta name="twitter:creator"    content="@ina_ani">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style><!--
+h1{
+  margin: 0px;
+  font-size: medium;
+}
+div.piece{
+  background-color: #ddf;
+  margin: 2px;
+  font-size: small;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+img{
+  height: 100px;
+  width: auto;
+}
+    -->
+    </style>
+  </head>
+  <body>
+    <h1>過去の今日の@ina_aniのTweet</h1>
+    <script>
+      fetch("http://today-twit.inajob.tk/today")
+  .then((res)=>{
+    return( res.json() );
+  })
+  .then((json)=>{
+    // ここに何らかの処理
+    console.log(json)
+    let y = -1;
+    json.forEach((o, i) =>{
+            if(o.full_text.indexOf("@") == 0){return}
+            if(o.full_text.indexOf("RT ") == 0){return}
+            let d = new Date(o.created_at);
+            if(y != d.getFullYear()){
+              y = d.getFullYear();
+              let e = document.createElement("h1");
+              e.appendChild(document.createTextNode(y +'/' + (d.getMonth()+1) + '/' + d.getDate()));
+              document.body.appendChild(e);
+            }
+            let e = document.createElement("div");
+            e.className = 'piece';
+            let e2 = document.createElement("div");
+            e2.appendChild(document.createTextNode(/*i + " " + o.retweet_count + " " + */o.full_text));
+            e.appendChild(e2)
+            if(o.extended_entities && o.extended_entities.media.length > 0) {
+              let img = document.createElement("img");
+              img.src = o.extended_entities.media[0].media_url
+              e.appendChild(img)
+            }
+            document.body.appendChild(e)
+    });
+  });
+
+    </script>
+  </body>
+</html>
