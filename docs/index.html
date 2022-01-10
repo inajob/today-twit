@@ -23,6 +23,10 @@ div.piece{
   padding-left: 10px;
   padding-right: 10px;
 }
+div.piece iframe{
+  width: 100%;
+  border: none;
+}
 img{
   height: 100px;
   width: auto;
@@ -56,6 +60,12 @@ img{
             let e2 = document.createElement("div");
             e2.appendChild(document.createTextNode(/*i + " " + o.retweet_count + " " + */o.full_text));
             e.appendChild(e2)
+            if(o.entities && o.entities.urls.length > 0) {
+              let elm = document.createElement("iframe");
+              let ifrsrc = "http://hatenablog.com/embed?url=" + o.entities.urls[o.entities.urls.length - 1].expanded_url
+              elm.src = ifrsrc
+              e.appendChild(elm)
+            }
             if(o.extended_entities && o.extended_entities.media.length > 0) {
               let img = document.createElement("img");
               img.src = o.extended_entities.media[0].media_url
