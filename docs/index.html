@@ -62,7 +62,7 @@ img{
             e.appendChild(e2)
             if(o.entities && o.entities.urls.length > 0) {
               let elm = document.createElement("iframe");
-              let ifrsrc = "http://hatenablog.com/embed?url=" + o.entities.urls[o.entities.urls.length - 1].expanded_url
+              let ifrsrc = "https://hatenablog.com/embed?url=" + o.entities.urls[o.entities.urls.length - 1].expanded_url
               elm.src = ifrsrc
               e.appendChild(elm)
             }
